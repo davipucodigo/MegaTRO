@@ -28,8 +28,11 @@
 #define PAGA_MEGATRO 5000000
 
 //TECLA DE SAIDA
-#define ESC_TECLA 27
+#define TECLA_ESC 27
 
+
+//VARIAVEIS
+int CREDITO_USUARIO = 1000;
 
 void Menu () {
     printf("\n ███╗   ███╗███████╗ ██████╗  █████╗     ████████╗██████╗  ██████╗  ");
