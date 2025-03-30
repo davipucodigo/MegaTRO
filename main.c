@@ -32,8 +32,11 @@
 
 
 //VARIAVEIS
-int CREDITO_USUARIO = 1000;
+int CREDITO_USUARIO = 1000; // Inicialmente 1000.
+int VetNumerosEscolhidos[10] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores apostados.
+int ControleNumeroGravados; // Variavel que controla o numero de valores de aposta guardados em VetNumerosEscolhidos.
 
+//FUNÇÔES
 void Menu () {
     printf("\n ███╗   ███╗███████╗ ██████╗  █████╗     ████████╗██████╗  ██████╗  ");
     printf("\n ████╗ ████║██╔════╝██╔════╝ ██╔══██╗    ╚══██╔══╝██╔══██╗██╔═══██╗ ");
@@ -41,7 +44,17 @@ void Menu () {
     printf("\n ██║╚██╔╝██║██╔══╝  ██║   ██║██╔══██║       ██║   ██╔══██╗██║   ██║ ");
     printf("\n ██║ ╚═╝ ██║███████╗╚██████╔╝██║  ██║       ██║   ██║  ██║╚██████╔╝ ");
     printf("\n ╚═╝     ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝       ╚═╝   ╚═╝  ╚═╝ ╚═════╝  ");
-    printf("\n DAVI SANT'ANNA - TRABALHO - TURMA 4324 \n");
+    printf("\n DAVI SANT'ANNA - TRABALHO - TURMA 4324");
+    printf("\n| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |");
+    printf("\n| CRÉDITO USUÁRIO: $%d                                               ", CREDITO_USUARIO);
+    printf("\n| NÚMEROS APOSTADOS: | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d |        |", VetNumerosEscolhidos[0],VetNumerosEscolhidos[1],VetNumerosEscolhidos[2],VetNumerosEscolhidos[3],VetNumerosEscolhidos[4],VetNumerosEscolhidos[5],VetNumerosEscolhidos[6],VetNumerosEscolhidos[7],VetNumerosEscolhidos[8],VetNumerosEscolhidos[9]);
+    printf("\n|                                                                     |");
+    printf("\n| 1) Comprar Números                                                  |");
+    printf("\n| 2) Apostar                                                          |");
+    printf("\n|                                                                     |");
+    printf("\n| Aperte a respectiva tecla do numero no teclado. Ou ESC para sair.   |");
+    printf("\n| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |");
+    printf("\nComandos >>>\n");
 }
 
 int main () {
@@ -49,7 +62,11 @@ int main () {
     setlocale(LC_ALL,"Portuguese");
     srand(time(NULL));
 
-    //MENU:
-    Menu();
+    //LAÇO PRINCIPAL  DO PROGRAMA:
+    while (1) {
+        Menu();
+        break;
+    }
+    
     return 0;
 }
