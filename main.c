@@ -3,6 +3,9 @@
 #include <locale.h>
 #include <time.h>
 
+#define CLEAR_SCREEN "clear"
+
+
 //SORTEIO 6 numeros compreendidos entre 1 a 60
 #define NUMERO_MAX_SORTEADO 60
 
@@ -35,6 +38,7 @@
 int CREDITO_USUARIO = 1000; // Inicialmente 1000.
 int VetNumerosEscolhidos[10] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores apostados.
 int ControleNumeroGravados; // Variavel que controla o numero de valores de aposta guardados em VetNumerosEscolhidos.
+char c = 48;
 
 //FUNÇÔES
 void Menu () {
@@ -54,7 +58,7 @@ void Menu () {
     printf("\n|                                                                     |");
     printf("\n| Aperte a respectiva tecla do numero no teclado. Ou ESC para sair.   |");
     printf("\n| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |");
-    printf("\nComandos >>>\n");
+    printf("\nComandos >>> ");
 }
 
 int main () {
@@ -64,8 +68,32 @@ int main () {
 
     //LAÇO PRINCIPAL  DO PROGRAMA:
     while (1) {
+        //Menu bonito.
+        //system(CLEAR_SCREEN);
         Menu();
-        break;
+
+        // Sistema de comando.
+        c = getc(stdin);
+        printf("\n%d",c);
+        //Oh 10 que aparece é um caracter de controle, possivelmente ele está a aparecer por conta da quebra de linha.
+        switch (c) {
+            case 49:
+            printf("\nTeste compra");
+                //... A programar
+            break;
+            case 50:
+            printf("\nTeste aposta");
+                //... A programar
+            break;
+        }
+        if (c == 27) {
+            printf("Saiu!!!");
+            break;
+        }
+
+        //REDEFINIÇÔES
+        c = 48;
+        printf("\n\n");
     }
     
     return 0;
