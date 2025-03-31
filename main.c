@@ -108,7 +108,24 @@ void EscolhendoNumeros () {
 }
 
 void GerandoNumerosApostados() {
-    //... programar
+    for (int x = 0; x < ControleNumeroGravados; x++) VetNumerosApostados[x] = 1+(rand()%NUMERO_MAX_SORTEADO);
+    int iguais = 1;
+    while (iguais) {
+        for (int x = 0; x < ControleNumeroGravados; x++) {
+            for (int z = 0; z < ControleNumeroGravados; z++) {
+                if (VetNumerosApostados[x] == VetNumerosApostados[z] && x != z) {
+                    iguais = 1;
+                    VetNumerosApostados[x] = 1+(rand()%NUMERO_MAX_SORTEADO);
+                    break;
+                }else {
+                    iguais = 0;
+                }
+            }
+        }
+        if (iguais == 0) {
+            break;
+        }
+    }
 }
 
 int main () {
@@ -129,6 +146,7 @@ int main () {
         switch (c) {
             case 49:
                 EscolhendoNumeros();
+                GerandoNumerosApostados();
             break;
             case 50:
             printf("\nTeste aposta");
@@ -136,7 +154,7 @@ int main () {
             break;
         }
         if (c == 27) {
-            printf("Saiu!!!");
+            printf("\nSaiu!!!\n");
             break;
         }
 
