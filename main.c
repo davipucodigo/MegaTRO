@@ -36,9 +36,11 @@
 
 //VARIAVEIS
 int CREDITO_USUARIO = 1000; // Inicialmente 1000.
-int VetNumerosApostados[10] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores apostados.
-int ControleNumeroGravados = 0; // Variavel que controla o numero de valores de aposta guardados em VetNumerosApostados.
+int VetNumerosAposta[6] = {0,0,0,0,0,0}; // Vetor que guardará os valores gerados pela aposta.
+int VetNumerosUsuario[10] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores escolhidos pelo apostador.
+int ControleNumeroGravados = 0; // Variavel que controla o numero de valores de aposta guardados em VetNumerosAposta.
 char c = 48;
+char Resultado[50] = "Resultado em aguardo";
 
 //FUNÇÔES
 void Menu () {
@@ -52,7 +54,8 @@ void Menu () {
     printf("\n| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |");
     printf("\n| CRÉDITO USUÁRIO: $%d                                                   ", CREDITO_USUARIO);
     printf("\n| QUANTIA DE NUMEROS APOSTADOS: %d                                       ", ControleNumeroGravados);
-    printf("\n| NÚMEROS APOSTADOS: | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | ", VetNumerosApostados[0],VetNumerosApostados[1],VetNumerosApostados[2],VetNumerosApostados[3],VetNumerosApostados[4],VetNumerosApostados[5],VetNumerosApostados[6],VetNumerosApostados[7],VetNumerosApostados[8],VetNumerosApostados[9]);
+    printf("\n| NÚMEROS DO USUÁRIO: | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | ", VetNumerosUsuario[0], VetNumerosUsuario[1], VetNumerosUsuario[2], VetNumerosUsuario[3], VetNumerosUsuario[4], VetNumerosUsuario[5], VetNumerosUsuario[6], VetNumerosUsuario[7], VetNumerosUsuario[8], VetNumerosUsuario[9]);
+    printf("\n| NÚMEROS DA TRÔ: | %d | %d | %d | %d | %d | %d | *%s ", VetNumerosAposta[0],VetNumerosAposta[1],VetNumerosAposta[2],VetNumerosAposta[3],VetNumerosAposta[4],VetNumerosAposta[5], Resultado);
     printf("\n|                                                                     |");
     printf("\n| 1) Comprar Números                                                  |");
     printf("\n| 2) Apostar                                                          |");
@@ -107,15 +110,46 @@ void EscolhendoNumeros () {
     }
 }
 
-void GerandoNumerosApostados() {
-    for (int x = 0; x < ControleNumeroGravados; x++) VetNumerosApostados[x] = 1+(rand()%NUMERO_MAX_SORTEADO);
+void EscolhaSeusNumeros() {
+    if (ControleNumeroGravados > 5 && ControleNumeroGravados < 11) {
+        for (int x = 0; x < ControleNumeroGravados; x++) {
+            printf("\n%d° Número: ",1+x);
+            scanf("%d", &VetNumerosUsuario[x]);
+            fflush(stdin);
+            int iguais = 1;
+            while (iguais) {
+                    for (int z = 0; z < ControleNumeroGravados; z++) {
+                        if (VetNumerosUsuario[x] > NUMERO_MAX_SORTEADO || VetNumerosUsuario[x] <= 0) {
+                            iguais = 1;
+                            printf("\n%d° Número entre 1 e 60 por favor, digite outro: ", 1+x);
+                            scanf("%d", &VetNumerosUsuario[x]);
+                            fflush(stdin);
+                        }
+                        if (VetNumerosUsuario[x] == VetNumerosUsuario[z] && x != z) {
+                            iguais = 1;
+                            printf("\n%d° Número Reperido digite outro: ", 1+x);
+                            scanf("%d", &VetNumerosUsuario[x]);
+                            fflush(stdin);
+                            break;
+                        }
+                        else {
+                            iguais = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+void GerandoNumerosAposta() {
+    for (int x = 0; x < ControleNumeroGravados; x++) VetNumerosAposta[x] = 1+(rand()%NUMERO_MAX_SORTEADO);
     int iguais = 1;
     while (iguais) {
         for (int x = 0; x < ControleNumeroGravados; x++) {
             for (int z = 0; z < ControleNumeroGravados; z++) {
-                if (VetNumerosApostados[x] == VetNumerosApostados[z] && x != z) {
+                if (VetNumerosAposta[x] == VetNumerosAposta[z] && x != z) {
                     iguais = 1;
-                    VetNumerosApostados[x] = 1+(rand()%NUMERO_MAX_SORTEADO);
+                    VetNumerosAposta[x] = 1+(rand()%NUMERO_MAX_SORTEADO);
                     break;
                 }else {
                     iguais = 0;
@@ -146,11 +180,10 @@ int main () {
         switch (c) {
             case 49:
                 EscolhendoNumeros();
-                GerandoNumerosApostados();
+                EscolhaSeusNumeros();
             break;
             case 50:
-            printf("\nTeste aposta");
-                //... programar
+                GerandoNumerosAposta();
             break;
         }
         if (c == 27) {
