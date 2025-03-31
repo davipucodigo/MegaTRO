@@ -36,8 +36,8 @@
 
 //VARIAVEIS
 int CREDITO_USUARIO = 1000; // Inicialmente 1000.
-int VetNumerosEscolhidos[10] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores apostados.
-int ControleNumeroGravados; // Variavel que controla o numero de valores de aposta guardados em VetNumerosEscolhidos.
+int VetNumerosApostados[10] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores apostados.
+int ControleNumeroGravados = 0; // Variavel que controla o numero de valores de aposta guardados em VetNumerosApostados.
 char c = 48;
 
 //FUNÇÔES
@@ -50,8 +50,9 @@ void Menu () {
     printf("\n ╚═╝     ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝       ╚═╝   ╚═╝  ╚═╝ ╚═════╝  ");
     printf("\n DAVI SANT'ANNA - TRABALHO - TURMA 4324");
     printf("\n| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |");
-    printf("\n| CRÉDITO USUÁRIO: $%d                                               ", CREDITO_USUARIO);
-    printf("\n| NÚMEROS APOSTADOS: | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d |        |", VetNumerosEscolhidos[0],VetNumerosEscolhidos[1],VetNumerosEscolhidos[2],VetNumerosEscolhidos[3],VetNumerosEscolhidos[4],VetNumerosEscolhidos[5],VetNumerosEscolhidos[6],VetNumerosEscolhidos[7],VetNumerosEscolhidos[8],VetNumerosEscolhidos[9]);
+    printf("\n| CRÉDITO USUÁRIO: $%d                                                   ", CREDITO_USUARIO);
+    printf("\n| QUANTIA DE NUMEROS APOSTADOS: %d                                       ", ControleNumeroGravados);
+    printf("\n| NÚMEROS APOSTADOS: | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | ", VetNumerosApostados[0],VetNumerosApostados[1],VetNumerosApostados[2],VetNumerosApostados[3],VetNumerosApostados[4],VetNumerosApostados[5],VetNumerosApostados[6],VetNumerosApostados[7],VetNumerosApostados[8],VetNumerosApostados[9]);
     printf("\n|                                                                     |");
     printf("\n| 1) Comprar Números                                                  |");
     printf("\n| 2) Apostar                                                          |");
@@ -59,6 +60,55 @@ void Menu () {
     printf("\n| Aperte a respectiva tecla do numero no teclado. Ou ESC para sair.   |");
     printf("\n| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |");
     printf("\nComandos >>> ");
+}
+
+void EscolhendoNumeros () {
+    while(1) {
+        printf("\n| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |");
+        printf("\n| Quantos Numeros deseja apostar?                                      ");
+        printf("\n| 6 N° - custo $%d                                                     ", SEIS_NUM_CUSTO);
+        printf("\n| 7 N° - custo $%d                                                     ", SETE_NUM_CUSTO);
+        printf("\n| 8 N° - custo $%d                                                     ", OITO_NUM_CUSTO);
+        printf("\n| 9 N° - custo $%d                                                     ", NOVE_NUM_CUSTO);
+        printf("\n| 10 N° - custo $%d                                                    ", DEZ_NUM_CUSTO);
+        printf("\n| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |");
+        printf("\nDigite a respectiva quantia que desejará apostar >> ");
+        scanf("%d",&ControleNumeroGravados);
+        fflush(stdin);
+        //Verifica quantia de numeros apostados
+        if (ControleNumeroGravados > 5 && ControleNumeroGravados < 11) {
+            //Verificar credito
+            switch (ControleNumeroGravados) {
+                case 6:
+                    if (CREDITO_USUARIO >= SEIS_NUM_CUSTO) CREDITO_USUARIO = CREDITO_USUARIO - SEIS_NUM_CUSTO;
+                    else printf("\n$%d de credito quantia insuficiente!",CREDITO_USUARIO);
+                break;
+                case 7: 
+                    if (CREDITO_USUARIO >= SETE_NUM_CUSTO) CREDITO_USUARIO = CREDITO_USUARIO - SETE_NUM_CUSTO;
+                    else printf("\n$%d de credito quantia insuficiente!",CREDITO_USUARIO);   
+                break;
+                case 8: 
+                    if (CREDITO_USUARIO >= OITO_NUM_CUSTO) CREDITO_USUARIO = CREDITO_USUARIO - OITO_NUM_CUSTO;
+                    else printf("\n$%d de credito quantia insuficiente!",CREDITO_USUARIO);
+                break;
+                case 9: 
+                    if (CREDITO_USUARIO >= NOVE_NUM_CUSTO) CREDITO_USUARIO = CREDITO_USUARIO - NOVE_NUM_CUSTO;
+                    else printf("\n$%d de credito quantia insuficiente!",CREDITO_USUARIO);
+                break;
+                case 10: 
+                    if (CREDITO_USUARIO >= DEZ_NUM_CUSTO) CREDITO_USUARIO = CREDITO_USUARIO - DEZ_NUM_CUSTO;
+                    else printf("\n$%d de credito quantia insuficiente!",CREDITO_USUARIO);
+                break;
+            }
+            break;//Fecha laço.
+        }else {
+            printf("\nNÚMERO DE APOSTAS INVALIDO!\n");
+        }
+    }
+}
+
+void GerandoNumerosApostados() {
+    //... programar
 }
 
 int main () {
@@ -74,16 +124,15 @@ int main () {
 
         // Sistema de comando.
         c = getc(stdin);
-        printf("\n%d",c);
+        printf("Tecla da Tabela ASCII: %d",c);
         //Oh 10 que aparece é um caracter de controle, possivelmente ele está a aparecer por conta da quebra de linha.
         switch (c) {
             case 49:
-            printf("\nTeste compra");
-                //... A programar
+                EscolhendoNumeros();
             break;
             case 50:
             printf("\nTeste aposta");
-                //... A programar
+                //... programar
             break;
         }
         if (c == 27) {
