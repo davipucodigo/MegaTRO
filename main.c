@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <time.h>
+#include <string.h>
 
 #define CLEAR_SCREEN "clear"
 
@@ -12,6 +13,9 @@
 //NUMEROS DO USUARIO
 #define MAX_NUMEROS_APOSTA 10
 #define MIN_NUMEROS_APOSTA 6
+
+//NUMERO MAXIMO DE VALORES GERADOS PARA MEGA TRO, NUMEROS TRO
+#define QUANTIA_NUMEROS_ALEATORIOS 6
 
 //CUSTOS dos NUMEROS APOSTADOS
 #define SEIS_NUM_CUSTO 2
@@ -36,8 +40,8 @@
 
 //VARIAVEIS
 int CREDITO_USUARIO = 1000; // Inicialmente 1000.
-int VetNumerosAposta[6] = {0,0,0,0,0,0}; // Vetor que guardará os valores gerados pela aposta.
-int VetNumerosUsuario[10] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores escolhidos pelo apostador.
+int VetNumerosAposta[QUANTIA_NUMEROS_ALEATORIOS] = {0,0,0,0,0,0}; // Vetor que guardará os valores gerados pela aposta.
+int VetNumerosUsuario[MAX_NUMEROS_APOSTA] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores escolhidos pelo apostador.
 int ControleNumeroGravados = 0; // Variavel que controla o numero de valores de aposta guardados em VetNumerosAposta.
 char c = 48;
 char Resultado[50] = "Resultado em aguardo";
@@ -142,11 +146,11 @@ void EscolhaSeusNumeros() {
     }
 
 void GerandoNumerosAposta() {
-    for (int x = 0; x < ControleNumeroGravados; x++) VetNumerosAposta[x] = 1+(rand()%NUMERO_MAX_SORTEADO);
+    for (int x = 0; x < QUANTIA_NUMEROS_ALEATORIOS; x++) VetNumerosAposta[x] = 1+(rand()%NUMERO_MAX_SORTEADO);
     int iguais = 1;
     while (iguais) {
-        for (int x = 0; x < ControleNumeroGravados; x++) {
-            for (int z = 0; z < ControleNumeroGravados; z++) {
+        for (int x = 0; x < QUANTIA_NUMEROS_ALEATORIOS; x++) {
+            for (int z = 0; z < QUANTIA_NUMEROS_ALEATORIOS; z++) {
                 if (VetNumerosAposta[x] == VetNumerosAposta[z] && x != z) {
                     iguais = 1;
                     VetNumerosAposta[x] = 1+(rand()%NUMERO_MAX_SORTEADO);
@@ -160,6 +164,41 @@ void GerandoNumerosAposta() {
             break;
         }
     }
+}
+
+void PREMIOS_TRO() {
+    int conta_acerto = 0;
+    for (int x = 0; x < QUANTIA_NUMEROS_ALEATORIOS; x++) {
+        for (int z = 0; z < QUANTIA_NUMEROS_ALEATORIOS; z++) {
+            if (VetNumerosAposta[x] == VetNumerosAposta[z] && x != z) {
+                conta_acerto++;
+            }
+        }
+    }  
+    switch (conta_acerto) {
+        case QUADRA:
+            strcpy(Resultado, "QUADRA TRÔ!");
+            CREDITO_USUARIO+=PAGA_QUADRA;
+        break;
+        case QUINA:
+            strcpy(Resultado,"QUINA TRÔ!!!");
+            CREDITO_USUARIO+=PAGA_QUINA;
+        break;
+        case MEGATRO:
+            strcpy(Resultado,"MEGATRÔÔÔ!!!!!!!!");
+            CREDITO_USUARIO+=PAGA_MEGATRO;
+        break;
+        default:
+            strcpy(Resultado,"Não foi dessa vez :( ");
+        break;
+    }   
+}
+
+
+void ResetaTro() {
+    for (int x = 0; x < MAX_NUMEROS_APOSTA; x++) VetNumerosUsuario[x] = 0;
+    for (int x = 0; x < QUANTIA_NUMEROS_ALEATORIOS; x++) VetNumerosAposta[x] = 0;
+    //Resultado ==> "Resultado em aguardo" programar isso ...
 }
 
 int main () {
@@ -184,6 +223,7 @@ int main () {
             break;
             case 50:
                 GerandoNumerosAposta();
+                PREMIOS_TRO();
             break;
         }
         if (c == 27) {
