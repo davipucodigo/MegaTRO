@@ -207,7 +207,7 @@ int main () {
         Menu();
         // Sistema de comando.
         c = getc(stdin);
-        if (c != 10) printf("Tecla da Tabela ASCII: %d",c);
+        printf("Tecla da Tabela ASCII: %d",c);
         //Oh 10 que aparece é um caracter de controle, possivelmente ele está a aparecer por conta da quebra de linha.
     
         switch (c) {
