@@ -45,6 +45,7 @@ int VetNumerosUsuario[MAX_NUMEROS_APOSTA] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que 
 int ControleNumeroGravados = 0; // Variavel que controla o numero de valores de aposta guardados em VetNumerosAposta.
 char c = 48;
 char Resultado[50] = "Resultado em aguardo";
+int confirmaAposta = 0;
 
 //FUNÇÔES
 void Menu () {
@@ -194,13 +195,6 @@ void PREMIOS_TRO() {
     }   
 }
 
-
-void ResetaTro() {
-    for (int x = 0; x < MAX_NUMEROS_APOSTA; x++) VetNumerosUsuario[x] = 0;
-    for (int x = 0; x < QUANTIA_NUMEROS_ALEATORIOS; x++) VetNumerosAposta[x] = 0;
-    //Resultado ==> "Resultado em aguardo" programar isso ...
-}
-
 int main () {
     //CONFIGURAÇÕES:
     setlocale(LC_ALL,"Portuguese");
@@ -211,28 +205,36 @@ int main () {
         //Menu bonito.
         //system(CLEAR_SCREEN);
         Menu();
-
         // Sistema de comando.
         c = getc(stdin);
-        printf("Tecla da Tabela ASCII: %d",c);
+        if (c != 10) printf("Tecla da Tabela ASCII: %d",c);
         //Oh 10 que aparece é um caracter de controle, possivelmente ele está a aparecer por conta da quebra de linha.
+    
         switch (c) {
             case 49:
+                c = 48;
+                confirmaAposta = 1;
                 EscolhendoNumeros();
                 EscolhaSeusNumeros();
+                strcpy(Resultado,"Resultado em aguardo");
             break;
             case 50:
-                GerandoNumerosAposta();
-                PREMIOS_TRO();
+                c = 48;
+                if (confirmaAposta == 1) {   
+                    GerandoNumerosAposta();
+                    PREMIOS_TRO();
+                    confirmaAposta = 0;
+                }
+                if (confirmaAposta == 0) printf("\nVocê não comprou numeros ou já os apostou.\n");
+            break;
+            default:
+                c = 48;
             break;
         }
         if (c == 27) {
             printf("\nSaiu!!!\n");
             break;
         }
-
-        //REDEFINIÇÔES
-        c = 48;
         printf("\n\n");
     }
     
