@@ -43,7 +43,6 @@ int CREDITO_USUARIO = 1000; // Inicialmente 1000.
 int VetNumerosAposta[QUANTIA_NUMEROS_ALEATORIOS] = {0,0,0,0,0,0}; // Vetor que guardará os valores gerados pela aposta.
 int VetNumerosUsuario[MAX_NUMEROS_APOSTA] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores escolhidos pelo apostador.
 int ControleNumeroGravados = 0; // Variavel que controla o numero de valores de aposta guardados em VetNumerosAposta.
-char c = 48;
 char Resultado[50] = "Resultado em aguardo";
 int confirmaAposta = 0;
 
@@ -200,6 +199,8 @@ int main () {
     setlocale(LC_ALL,"Portuguese");
     srand(time(NULL));
 
+    
+    char c = 48;
     //LAÇO PRINCIPAL  DO PROGRAMA:
     while (1) {
         //Menu bonito.
@@ -214,6 +215,7 @@ int main () {
             case 49:
                 c = 48;
                 confirmaAposta = 1;
+                for (int x = 0, x < MAX_NUMEROS_APOSTA; x++) VetNumerosUsuario[x] = 0; // Zera tudo.
                 EscolhendoNumeros();
                 EscolhaSeusNumeros();
                 strcpy(Resultado,"Resultado em aguardo");
