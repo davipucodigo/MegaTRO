@@ -229,9 +229,6 @@ int main () {
                 }
                 if (confirmaAposta == 0) printf("\nVocê não comprou numeros ou já os apostou.\n");
             break;
-            default:
-                c = 48;
-            break;
         }
         if (c == 27) {
             printf("\nSaiu!!!\n");
