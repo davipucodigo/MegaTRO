@@ -215,7 +215,7 @@ int main () {
             case 49:
                 c = 48;
                 confirmaAposta = 1;
-                for (int x = 0, x < MAX_NUMEROS_APOSTA; x++) VetNumerosUsuario[x] = 0; // Zera tudo.
+                for (int x = 0; x < MAX_NUMEROS_APOSTA; x++) VetNumerosUsuario[x] = 0; // Zera tudo.
                 EscolhendoNumeros();
                 EscolhaSeusNumeros();
                 strcpy(Resultado,"Resultado em aguardo");
