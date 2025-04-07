@@ -44,8 +44,9 @@ int VetNumerosAposta[QUANTIA_NUMEROS_ALEATORIOS] = {0,0,0,0,0,0}; // Vetor que g
 int VetNumerosUsuario[MAX_NUMEROS_APOSTA] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores escolhidos pelo apostador.
 int ControleNumeroGravados = 0; // Variavel que controla o numero de valores de aposta guardados em VetNumerosAposta.
 char Resultado[50] = "Resultado em aguardo";
-char msg[50] = " ";
+char msg[500] = " ";
 int confirmaAposta = 0;
+int conta_acerto = 0;
 
 //FUNÇÔES
 void Menu () {
@@ -61,6 +62,7 @@ void Menu () {
     printf("\n| QUANTIA DE NUMEROS APOSTADOS: %d                                       ", ControleNumeroGravados);
     printf("\n| NÚMEROS DO USUÁRIO: | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d | ", VetNumerosUsuario[0], VetNumerosUsuario[1], VetNumerosUsuario[2], VetNumerosUsuario[3], VetNumerosUsuario[4], VetNumerosUsuario[5], VetNumerosUsuario[6], VetNumerosUsuario[7], VetNumerosUsuario[8], VetNumerosUsuario[9]);
     printf("\n| NÚMEROS DA TRÔ: | %d | %d | %d | %d | %d | %d | *%s ", VetNumerosAposta[0],VetNumerosAposta[1],VetNumerosAposta[2],VetNumerosAposta[3],VetNumerosAposta[4],VetNumerosAposta[5], Resultado);
+    printf("\n| NÚMEROS DE ACERTOS: %d                                               ", conta_acerto);
     printf("\n|                                                                     |");
     printf("\n| 1) Comprar Números                                                  |");
     printf("\n| 2) Apostar                                                          |");
@@ -169,10 +171,10 @@ void GerandoNumerosAposta() {
 }
 
 void PREMIOS_TRO() {
-    int conta_acerto = 0;
+    conta_acerto = 0;
     for (int x = 0; x < QUANTIA_NUMEROS_ALEATORIOS; x++) {
-        for (int z = 0; z < QUANTIA_NUMEROS_ALEATORIOS; z++) {
-            if (VetNumerosAposta[x] == VetNumerosAposta[z] && x != z) {
+        for (int z = 0; z < MAX_NUMEROS_APOSTA; z++) {
+            if (VetNumerosAposta[x] == VetNumerosUsuario[z]) {
                 conta_acerto++;
             }
         }
