@@ -44,6 +44,7 @@ int VetNumerosAposta[QUANTIA_NUMEROS_ALEATORIOS] = {0,0,0,0,0,0}; // Vetor que g
 int VetNumerosUsuario[MAX_NUMEROS_APOSTA] = {0,0,0,0,0,0,0,0,0,0}; // Vetor que guardará os valores escolhidos pelo apostador.
 int ControleNumeroGravados = 0; // Variavel que controla o numero de valores de aposta guardados em VetNumerosAposta.
 char Resultado[50] = "Resultado em aguardo";
+char msg[50] = " ";
 int confirmaAposta = 0;
 
 //FUNÇÔES
@@ -66,6 +67,7 @@ void Menu () {
     printf("\n|                                                                     |");
     printf("\n| Aperte a respectiva tecla do numero no teclado. Ou ESC para sair.   |");
     printf("\n| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |");
+    printf("\n %s", msg);
     printf("\nComandos >>> ");
 }
 
@@ -204,17 +206,17 @@ int main () {
     //LAÇO PRINCIPAL  DO PROGRAMA:
     while (1) {
         //Menu bonito.
-        //system(CLEAR_SCREEN);
         Menu();
         // Sistema de comando.
         c = getc(stdin);
-        printf("Tecla da Tabela ASCII: %d",c);
+        //printf("Tecla da Tabela ASCII: %d",c);
         //Oh 10 que aparece é um caracter de controle, possivelmente ele está a aparecer por conta da quebra de linha.
     
         switch (c) {
             case 49:
                 c = 48;
                 confirmaAposta = 1;
+                strcpy(msg," ");
                 for (int x = 0; x < MAX_NUMEROS_APOSTA; x++) VetNumerosUsuario[x] = 0; // Zera tudo.
                 EscolhendoNumeros();
                 EscolhaSeusNumeros();
@@ -227,9 +229,13 @@ int main () {
                     PREMIOS_TRO();
                     confirmaAposta = 0;
                 }
-                if (confirmaAposta == 0) printf("\nVocê não comprou numeros ou já os apostou.\n");
+                if (confirmaAposta == 0) strcpy(msg,"Compre mais numeros. Caso não esteja apostando é por que você não comprou numeros ou já os apostou.");
+            break;
+            case 10:
+                system(CLEAR_SCREEN);
             break;
         }
+        
         if (c == 27) {
             printf("\nSaiu!!!\n");
             break;
